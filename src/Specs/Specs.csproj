@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="Product.cs" />
     <Compile Include="ProductCreatedEvent.cs" />
+    <Compile Include="ProductNameSetEvent.cs" />
     <Compile Include="ProductViewModel.cs" />
     <Compile Include="ProductViewModelDenormalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

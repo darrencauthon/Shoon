@@ -87,6 +87,45 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Create and update")]
+        public virtual void CreateAndUpdate()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create and update", ((string[])(null)));
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line 17
+ testRunner.Given("the product view model table is empty");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "AggregateRootId",
+                        "4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE"});
+            table3.AddRow(new string[] {
+                        "Sku",
+                        "SKU #1"});
+#line 18
+ testRunner.When("a product is created with the following data", ((string)(null)), table3);
+#line 22
+ testRunner.And("the name of the product \'4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE\' is set to \'Applesa" +
+                    "uce Cleaner\'");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AggregateRootId",
+                        "Sku",
+                        "Name"});
+            table4.AddRow(new string[] {
+                        "09887969-1F86-47A0-BB47-57722D2DF892",
+                        "testsku",
+                        "Applesauce Cleaner"});
+#line 23
+ testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table4);
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

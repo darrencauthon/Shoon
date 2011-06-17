@@ -18,5 +18,10 @@ namespace Specs
         {
             Id = productCreatedEvent.AggregateRootId;
         }
+
+        public void SetName(string name)
+        {
+            Apply(new ProductNameSetEvent {Name = name});
+        }
     }
 }

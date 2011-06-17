@@ -16,5 +16,10 @@ namespace Shoon
         {
             db.Products.Insert(domainEvent);
         }
+
+        public void Update(DomainEvent domainEvent)
+        {
+            db.Products.UpdateByAggregateRootId(domainEvent);
+        }
     }
 }

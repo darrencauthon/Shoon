@@ -19,6 +19,15 @@ namespace Specs.Steps
             domainRepository.Save(product);
         }
 
+        [When(@"the name of the product '(.*)' is set to '(.*)'")]
+        public void WhenTheNameOfTheProductIsSetToApplesauceCleaner(string id, string name)
+        {
+            var domainRepository = ScenarioContext.Current.Get<IDomainRepository>();
+            var product = domainRepository.GetById<Product>(new Guid(id));
+            product.SetName(name);
+            domainRepository.Save(product);
+        }
+
         public class GetDataFromTable
         {
             public Guid AggregateRootId { get; set; }
