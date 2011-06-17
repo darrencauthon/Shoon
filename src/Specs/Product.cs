@@ -9,9 +9,9 @@ namespace Specs
         {
         }
 
-        public Product(Guid id)
+        public Product(Guid id, string sku)
         {
-            Apply(new ProductCreatedEvent {AggregateRootId = id});
+            Apply(new ProductCreatedEvent {AggregateRootId = id, Sku = sku});
         }
 
         public void OnProductCreated(ProductCreatedEvent productCreatedEvent)

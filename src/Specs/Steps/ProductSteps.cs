@@ -13,7 +13,7 @@ namespace Specs.Steps
         {
             var data = table.CreateInstance<GetDataFromTable>();
 
-            var product = new Product(data.AggregateRootId);
+            var product = new Product(data.AggregateRootId, data.Sku);
 
             var domainRepository = ScenarioContext.Current.Get<IDomainRepository>();
             domainRepository.Save(product);
@@ -22,6 +22,7 @@ namespace Specs.Steps
         public class GetDataFromTable
         {
             public Guid AggregateRootId { get; set; }
+            public string Sku { get; set; }
         }
     }
 }

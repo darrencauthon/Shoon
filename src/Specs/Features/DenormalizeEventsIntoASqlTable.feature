@@ -8,6 +8,7 @@ Scenario: Create a new object in the table
 	When a product is created with the following data
 	| Field           | Value                                |
 	| AggregateRootId | 09887969-1F86-47A0-BB47-57722D2DF892 |
+	| Sku             | testsku                              |
 	Then the following product view models should exist in the Product table
-	| AggregateRootId                      |
-	| 09887969-1F86-47A0-BB47-57722D2DF892 |
+	| AggregateRootId                      | Sku     |
+	| 09887969-1F86-47A0-BB47-57722D2DF892 | testsku |

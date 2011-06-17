@@ -70,14 +70,19 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "AggregateRootId",
                         "09887969-1F86-47A0-BB47-57722D2DF892"});
+            table1.AddRow(new string[] {
+                        "Sku",
+                        "testsku"});
 #line 8
  testRunner.When("a product is created with the following data", ((string)(null)), table1);
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "AggregateRootId"});
+                        "AggregateRootId",
+                        "Sku"});
             table2.AddRow(new string[] {
-                        "09887969-1F86-47A0-BB47-57722D2DF892"});
-#line 11
+                        "09887969-1F86-47A0-BB47-57722D2DF892",
+                        "testsku"});
+#line 12
  testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table2);
 #line hidden
             testRunner.CollectScenarioErrors();

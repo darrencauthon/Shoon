@@ -14,7 +14,7 @@ namespace Shoon
 
         public void Insert(DomainEvent domainEvent)
         {
-            db.Products.Insert(AggregateRootId: domainEvent.AggregateRootId);
+            db.Products.Insert(domainEvent);
         }
     }
 }
