@@ -1,4 +1,7 @@
-﻿using Simple.Data;
+﻿using System.Configuration;
+using System.Linq;
+using Simple.Data;
+using Simple.Data.SqlServer;
 using SimpleCqrs.Eventing;
 
 namespace Shoon
@@ -10,6 +13,13 @@ namespace Shoon
         public SqlDenormalizer()
         {
             db = Database.Open();
+
+            var connectionString = ConfigurationManager.ConnectionStrings["Simple.Data.Properties.Settings.DefaultConnectionString"].ConnectionString;
+            var sqlConnectionProvider = new SqlConnectionProvider(connectionString);
+            var sqlSchemaProvider = new SqlSchemaProvider(sqlConnectionProvider);
+            var table = sqlSchemaProvider.GetTables().First();
+            var columns = sqlSchemaProvider.GetColumns(table);
+
         }
 
         public void Insert(DomainEvent domainEvent)
