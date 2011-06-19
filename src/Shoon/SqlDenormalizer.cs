@@ -9,11 +9,12 @@ namespace Shoon
     {
         private readonly IConnectionStringRetriever connectionStringRetriever;
         private readonly UpdatableValuesBuilder updateValuesBuilder;
+        private const string tableName = "Products";
 
         public SqlDenormalizer()
         {
             connectionStringRetriever = ServiceLocator.Current.Resolve<IConnectionStringRetriever>();
-            updateValuesBuilder = new UpdatableValuesBuilder(connectionStringRetriever, "Products");
+            updateValuesBuilder = new UpdatableValuesBuilder(connectionStringRetriever, tableName);
         }
 
         protected dynamic TheDatabaseTable
@@ -22,7 +23,7 @@ namespace Shoon
             {
                 var connectionString = connectionStringRetriever.GetTheConnectionString();
 
-                return Database.OpenConnection(connectionString)["Products"];
+                return Database.OpenConnection(connectionString)[tableName];
             }
         }
 
