@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using Simple.Data.SqlServer;
@@ -9,6 +8,13 @@ namespace Shoon
 {
     public class UpdatableValuesBuilder
     {
+        private readonly ConnectionStringRetriever connectionStringRetriever;
+
+        public UpdatableValuesBuilder(ConnectionStringRetriever connectionStringRetriever)
+        {
+            this.connectionStringRetriever = connectionStringRetriever;
+        }
+
         public IDictionary<string, object> GetTheDataToUpdateInTheTable(DomainEvent domainEvent)
         {
             var tableColumnsToUpdate = GetTheTableColumnsThatNeedToBeUpdated(domainEvent);
@@ -28,7 +34,7 @@ namespace Shoon
                 .Where(property => ColumnsInTheDatabaseTable.Contains(property));
         }
 
-        private static IEnumerable<string> GetTheColumnsInTheTable()
+        private IEnumerable<string> GetTheColumnsInTheTable()
         {
             var connectionString = GetTheConnectionString();
             var sqlConnectionProvider = new SqlConnectionProvider(connectionString);
@@ -59,9 +65,9 @@ namespace Shoon
                 .FirstOrDefault(x => x.Name == propertyName);
         }
 
-        private static string GetTheConnectionString()
+        private string GetTheConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["Simple.Data.Properties.Settings.DefaultConnectionString"].ConnectionString;
+            return connectionStringRetriever.GetTheConnectionString();
         }
     }
 }

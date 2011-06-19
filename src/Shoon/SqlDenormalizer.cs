@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using Simple.Data;
 using SimpleCqrs.Eventing;
 
@@ -7,9 +6,21 @@ namespace Shoon
 {
     public class SqlDenormalizer
     {
+        private readonly ConnectionStringRetriever connectionStringRetriever;
+
+        public SqlDenormalizer()
+        {
+            connectionStringRetriever = new ConnectionStringRetriever();
+        }
+
         protected dynamic TheDatabaseTable
         {
-            get { return Database.OpenConnection(GetTheConnectionString())["Products"]; }
+            get
+            {
+                var connectionString = new ConnectionStringRetriever().GetTheConnectionString();
+
+                return Database.OpenConnection(connectionString)["Products"];
+            }
         }
 
         protected virtual void Insert(DomainEvent domainEvent)
@@ -39,14 +50,9 @@ namespace Shoon
             TheDatabaseTable.DeleteById(domainEvent.AggregateRootId);
         }
 
-        private static string GetTheConnectionString()
+        private IDictionary<string, object> GetTheDataToUpdateInTheTable(DomainEvent domainEvent)
         {
-            return ConfigurationManager.ConnectionStrings["Simple.Data.Properties.Settings.DefaultConnectionString"].ConnectionString;
-        }
-
-        private static IDictionary<string, object> GetTheDataToUpdateInTheTable(DomainEvent domainEvent)
-        {
-            return (new UpdatableValuesBuilder().GetTheDataToUpdateInTheTable(domainEvent));
+            return (new UpdatableValuesBuilder(connectionStringRetriever).GetTheDataToUpdateInTheTable(domainEvent));
         }
 
         private bool ThisRecordHasBeenInserted(DomainEvent domainEvent)
