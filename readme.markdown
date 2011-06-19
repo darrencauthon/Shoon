@@ -1,4 +1,5 @@
 Shoon
+=========
 
 # What is it?
 Shoon is a simple SQL Server denormalizer for SimpleCQRS.  You can use it to quickly build view models from events that happen in your system.
