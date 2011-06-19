@@ -24,8 +24,17 @@ Scenario: Create and update
 	| AggregateRootId                      | Sku     | Name               |
 	| 4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE | SKU #1  | Applesauce Cleaner |
 
-Scenario: Upsert when no previous record exists
+Scenario: Upsert when the record has not been inserted
 	Given the product view model table is empty
+	When an event to set the price of product '27BB4FC0-5058-42A2-A97A-0F9027C9F0EB' to 4 without a create event
+	Then the following product view models should exist in the Product table
+	| AggregateRootId                      | Sku | Name | Price |
+	| 27BB4FC0-5058-42A2-A97A-0F9027C9F0EB |     |      | 4     |
+
+Scenario: Upsert when the record has already been inserted
+	Given the product view model table has the following data
+	| AggregateRootId                      | Price |
+	| 27BB4FC0-5058-42A2-A97A-0F9027C9F0EB |       |
 	When an event to set the price of product '27BB4FC0-5058-42A2-A97A-0F9027C9F0EB' to 4 without a create event
 	Then the following product view models should exist in the Product table
 	| AggregateRootId                      | Sku | Name | Price |

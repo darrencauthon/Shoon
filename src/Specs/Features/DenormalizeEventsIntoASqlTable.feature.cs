@@ -128,10 +128,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Upsert when no previous record exists")]
-        public virtual void UpsertWhenNoPreviousRecordExists()
+        [NUnit.Framework.DescriptionAttribute("Upsert when the record has not been inserted")]
+        public virtual void UpsertWhenTheRecordHasNotBeenInserted()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Upsert when no previous record exists", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Upsert when the record has not been inserted", ((string[])(null)));
 #line 27
 this.ScenarioSetup(scenarioInfo);
 #line 28
@@ -152,6 +152,42 @@ this.ScenarioSetup(scenarioInfo);
                         "4"});
 #line 30
  testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table5);
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Upsert when the record has already been inserted")]
+        public virtual void UpsertWhenTheRecordHasAlreadyBeenInserted()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Upsert when the record has already been inserted", ((string[])(null)));
+#line 34
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AggregateRootId",
+                        "Price"});
+            table6.AddRow(new string[] {
+                        "27BB4FC0-5058-42A2-A97A-0F9027C9F0EB",
+                        ""});
+#line 35
+ testRunner.Given("the product view model table has the following data", ((string)(null)), table6);
+#line 38
+ testRunner.When("an event to set the price of product \'27BB4FC0-5058-42A2-A97A-0F9027C9F0EB\' to 4 " +
+                    "without a create event");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AggregateRootId",
+                        "Sku",
+                        "Name",
+                        "Price"});
+            table7.AddRow(new string[] {
+                        "27BB4FC0-5058-42A2-A97A-0F9027C9F0EB",
+                        "",
+                        "",
+                        "4"});
+#line 39
+ testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table7);
 #line hidden
             testRunner.CollectScenarioErrors();
         }

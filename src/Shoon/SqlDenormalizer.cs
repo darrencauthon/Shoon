@@ -63,7 +63,10 @@ namespace Shoon
 
         protected void Upsert(DomainEvent domainEvent)
         {
-            Insert(domainEvent);
+            if (db.Products.FindAllByAggregateRootId(domainEvent.AggregateRootId).Any())
+                Update(domainEvent);
+            else
+                Insert(domainEvent);
         }
     }
 }
