@@ -1,5 +1,5 @@
 Shoon
-===========
+
 # What is it?
 Shoon is a simple SQL Server denormalizer for SimpleCQRS.  You can use it to quickly build view models from events that happen in your system.
 
@@ -17,10 +17,10 @@ Shoon is a simple SQL Server denormalizer for SimpleCQRS.  You can use it to qui
 
 # Example
 
-    public class AccountDenormalizer : SqlDenormalizer,
-                                       IHandleDomainEvents<AccountCreatedEvent>,
-                                       IHandleDomainEvents<AccountNameSetEvent>,
-                                       IHandleDomainEvents<AccountEmailSetEvent>
+    public class AccountViewModelDenormalizer : SqlDenormalizer,
+                                                IHandleDomainEvents<AccountCreatedEvent>,
+                                                IHandleDomainEvents<AccountNameSetEvent>,
+                                                IHandleDomainEvents<AccountEmailSetEvent>
     {
 
         public void Handle(AccountCreatedEvent domainEvent)
@@ -39,8 +39,24 @@ Shoon is a simple SQL Server denormalizer for SimpleCQRS.  You can use it to qui
         }
     }
 
-As accounts are created and data set, it will build a table like this:
+    public class AccountCreatedEvent : DomainEvent {}
+
+    public class AccountNameSetEvent : DomainEvent 
+    {
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+    }
+
+    public class AccountEmailSetEvent: DomainEvent 
+    {
+        public string Email { get; set; }
+    }
+
+As accounts are created and data set, it will fill an AccountViewModel table like this:
 
     | Id     | FirstName | LastName | Email            |
     | GUID 1 | Howard    | Roark    | howard@roark.com |
     | GUID 2 | John      | Galt     | john@galt.com    |
+
+Note:  Since MiddleName is not in the AccountViewModel table, it is not saved.  Only values that you add to the table are saved.
