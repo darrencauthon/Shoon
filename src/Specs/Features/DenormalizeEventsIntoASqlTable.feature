@@ -22,4 +22,4 @@ Scenario: Create and update
 	And the name of the product '4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE' is set to 'Applesauce Cleaner'
 	Then the following product view models should exist in the Product table
 	| AggregateRootId                      | Sku     | Name               |
-	| 09887969-1F86-47A0-BB47-57722D2DF892 | testsku | Applesauce Cleaner |
+	| 4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE | SKU #1  | Applesauce Cleaner |

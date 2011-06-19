@@ -118,8 +118,8 @@ this.ScenarioSetup(scenarioInfo);
                         "Sku",
                         "Name"});
             table4.AddRow(new string[] {
-                        "09887969-1F86-47A0-BB47-57722D2DF892",
-                        "testsku",
+                        "4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE",
+                        "SKU #1",
                         "Applesauce Cleaner"});
 #line 23
  testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table4);

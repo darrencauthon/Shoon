@@ -54,15 +54,6 @@
     <Reference Include="Should">
       <HintPath>..\packages\Should.1.1.12.0\lib\Should.dll</HintPath>
     </Reference>
-    <Reference Include="Simple.Data">
-      <HintPath>..\packages\Simple.Data.Core.0.6.7\lib\net40\Simple.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.Data.Ado">
-      <HintPath>..\packages\Simple.Data.Ado.0.6.7\lib\net40\Simple.Data.Ado.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.Data.SqlServer">
-      <HintPath>..\packages\Simple.Data.SqlServer.0.6.7\lib\net40\Simple.Data.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="SimpleCqrs">
       <HintPath>..\..\lib\SimpleCqrs\SimpleCqrs.dll</HintPath>
     </Reference>
@@ -105,7 +96,9 @@
     <Compile Include="TestingRuntime.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Features\DenormalizeEventsIntoASqlTable.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DenormalizeEventsIntoASqlTable.feature.cs</LastGenOutput>
@@ -113,6 +106,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Simple.Data\Simple.Data.Ado\Simple.Data.Ado.csproj">
+      <Project>{ECC2D7DB-EC7F-44B6-B09F-5B471C629685}</Project>
+      <Name>Simple.Data.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Simple.Data\Simple.Data.SqlServer\Simple.Data.SqlServer.csproj">
+      <Project>{E24F1C0F-3DCD-4BE5-9A6E-78EF6CB392A1}</Project>
+      <Name>Simple.Data.SqlServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Simple.Data\Simple.Data\Simple.Data.csproj">
+      <Project>{148CEE80-2E84-4ABD-B5AB-20415B2BBD21}</Project>
+      <Name>Simple.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Shoon\Shoon.csproj">
       <Project>{7490A22B-1D47-4E86-9269-F2F348BE266F}</Project>
       <Name>Shoon</Name>
