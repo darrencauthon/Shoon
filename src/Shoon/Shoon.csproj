@@ -54,9 +54,6 @@
     <Compile Include="SqlDenormalizer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\ForeignKeysSql.txt" />
     <Content Include="Resources\PrimaryKeySql.txt" />
   </ItemGroup>
