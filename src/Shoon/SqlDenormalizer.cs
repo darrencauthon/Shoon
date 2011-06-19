@@ -46,6 +46,11 @@ namespace Shoon
                 Insert(domainEvent);
         }
 
+        protected void Delete(DomainEvent domainEvent)
+        {
+            TheDatabaseTable.DeleteByAggregateRootId(domainEvent.AggregateRootId);
+        }
+
         private static object GetValue(DomainEvent domainEvent, string column)
         {
             return GetThePropertyOnThisObject(domainEvent, column).GetValue(domainEvent, null);
@@ -83,11 +88,6 @@ namespace Shoon
         private bool ThisRecordHasAlreadyBeenAdded(DomainEvent domainEvent)
         {
             return (bool) TheDatabaseTable.FindAllByAggregateRootId(domainEvent.AggregateRootId).Any();
-        }
-
-        protected void Delete(DomainEvent domainEvent)
-        {
-            TheDatabaseTable.DeleteByAggregateRootId(domainEvent.AggregateRootId);
         }
     }
 }
