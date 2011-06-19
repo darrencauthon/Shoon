@@ -11,7 +11,9 @@ Shoon is a simple SQL Server denormalizer for SimpleCQRS.  You can use it to qui
 
 3.)  Create a table that will serve as your view model table, and set its identity to be a uniqueidentifier "Id".
 
-3.)  Create a denormalizer named "[YOUR TABLE NAME]Denormalizer".  Make it inherit from SqlDenormalizera, d
+3.)  Create a denormalizer named "[YOUR TABLE NAME]Denormalizer".  Make it inherit from SqlDenormalizer.
+
+4.)  For each handled event, pass the domain event to either:  Insert, Update, Delete, or Upsert.
 
 # Example
 
@@ -37,3 +39,8 @@ Shoon is a simple SQL Server denormalizer for SimpleCQRS.  You can use it to qui
         }
     }
 
+As accounts are created and data set, it will build a table like this:
+
+| Id     | FirstName | LastName | Email            |
+| GUID 1 | Howard    | Roark    | howard@roark.com |
+| GUID 2 | John      | Galt     | john@galt.com    |
