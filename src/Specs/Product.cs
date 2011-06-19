@@ -23,5 +23,10 @@ namespace Specs
         {
             Apply(new ProductNameSetEvent {Name = name});
         }
+
+        public void MarkAsInactive()
+        {
+            Apply(new ProductMarkedAsInactiveEvent());
+        }
     }
 }

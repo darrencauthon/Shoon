@@ -6,7 +6,8 @@ namespace Specs
 {
     public class ProductViewModelDenormalizer : SqlDenormalizer,
                                                 IHandleDomainEvents<ProductCreatedEvent>,
-                                                IHandleDomainEvents<ProductNameSetEvent>
+                                                IHandleDomainEvents<ProductNameSetEvent>,
+        IHandleDomainEvents<ProductMarkedAsInactiveEvent>
     {
         public void Handle(ProductCreatedEvent domainEvent)
         {
@@ -21,6 +22,11 @@ namespace Specs
         public void Handle(ProductPriceSetEvent domainEvent)
         {
             Upsert(domainEvent);
+        }
+
+        public void Handle(ProductMarkedAsInactiveEvent domainEvent)
+        {
+            Delete(domainEvent);
         }
     }
 }

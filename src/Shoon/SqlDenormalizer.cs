@@ -84,5 +84,10 @@ namespace Shoon
         {
             return (bool) TheDatabaseTable.FindAllByAggregateRootId(domainEvent.AggregateRootId).Any();
         }
+
+        protected void Delete(DomainEvent domainEvent)
+        {
+            TheDatabaseTable.DeleteByAggregateRootId(domainEvent.AggregateRootId);
+        }
     }
 }

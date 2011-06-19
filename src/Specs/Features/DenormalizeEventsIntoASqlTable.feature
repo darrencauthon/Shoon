@@ -39,3 +39,15 @@ Scenario: Upsert when the record has already been inserted
 	Then the following product view models should exist in the Product table
 	| AggregateRootId                      | Sku | Name | Price |
 	| 27BB4FC0-5058-42A2-A97A-0F9027C9F0EB |     |      | 4     |
+
+Scenario: Delete
+	Given the product view model table has the following data
+	| AggregateRootId                      |
+	| 7B1FEAF8-A190-452A-9827-FA615607CDBE |
+	When a product is created with the following data
+	| Field           | Value                                |
+	| AggregateRootId | 27BB4FC0-5058-42A2-A97A-0F9027C9F0EB |
+	And an event with id of '27BB4FC0-5058-42A2-A97A-0F9027C9F0EB' is marked as inactive
+	Then the following product view models should exist in the Product table
+	| AggregateRootId                      |
+	| 7B1FEAF8-A190-452A-9827-FA615607CDBE |

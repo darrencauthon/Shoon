@@ -191,6 +191,42 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete")]
+        public virtual void Delete()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete", ((string[])(null)));
+#line 43
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AggregateRootId"});
+            table8.AddRow(new string[] {
+                        "7B1FEAF8-A190-452A-9827-FA615607CDBE"});
+#line 44
+ testRunner.Given("the product view model table has the following data", ((string)(null)), table8);
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table9.AddRow(new string[] {
+                        "AggregateRootId",
+                        "27BB4FC0-5058-42A2-A97A-0F9027C9F0EB"});
+#line 47
+ testRunner.When("a product is created with the following data", ((string)(null)), table9);
+#line 50
+ testRunner.And("an event with id of \'27BB4FC0-5058-42A2-A97A-0F9027C9F0EB\' is marked as inactive");
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AggregateRootId"});
+            table10.AddRow(new string[] {
+                        "7B1FEAF8-A190-452A-9827-FA615607CDBE"});
+#line 51
+ testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table10);
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

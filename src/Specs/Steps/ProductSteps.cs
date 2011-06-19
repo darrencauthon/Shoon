@@ -28,10 +28,13 @@ namespace Specs.Steps
             domainRepository.Save(product);
         }
 
-        [When(@"the price of the product '(.*)' is set to ")]
-        public void WhenThePriceOfTheProduct68EC20BA_4DF3_4328_9E7E_60DEEDB3DF29IsSetTo4_00()
+        [When(@"an event with id of '(.*)' is marked as inactive")]
+        public void WhenAnEventWithIdOf27BB4FC0_5058_42A2_A97A_0F9027C9F0EBIsDeleted(string id)
         {
-            ScenarioContext.Current.Pending();
+            var domainRepository = ScenarioContext.Current.Get<IDomainRepository>();
+            var product = domainRepository.GetById<Product>(new Guid(id));
+            product.MarkAsInactive();
+            domainRepository.Save(product);
         }
 
         public class GetDataFromTable

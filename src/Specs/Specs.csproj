@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Product.cs" />
     <Compile Include="ProductCreatedEvent.cs" />
+    <Compile Include="ProductMarkedAsInactiveEvent.cs" />
     <Compile Include="ProductNameSetEvent.cs" />
     <Compile Include="ProductPriceSetEvent.cs" />
     <Compile Include="ProductViewModel.cs" />
