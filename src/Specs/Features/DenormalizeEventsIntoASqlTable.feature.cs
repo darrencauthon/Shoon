@@ -77,7 +77,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("a product is created with the following data", ((string)(null)), table1);
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "AggregateRootId",
+                        "Id",
                         "Sku"});
             table2.AddRow(new string[] {
                         "09887969-1F86-47A0-BB47-57722D2DF892",
@@ -114,7 +114,7 @@ this.ScenarioSetup(scenarioInfo);
                     "uce Cleaner\'");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "AggregateRootId",
+                        "Id",
                         "Sku",
                         "Name"});
             table4.AddRow(new string[] {
@@ -141,7 +141,7 @@ this.ScenarioSetup(scenarioInfo);
                     "without a create event");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "AggregateRootId",
+                        "Id",
                         "Sku",
                         "Name",
                         "Price"});
@@ -165,7 +165,7 @@ this.ScenarioSetup(scenarioInfo);
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "AggregateRootId",
+                        "Id",
                         "Price"});
             table6.AddRow(new string[] {
                         "27BB4FC0-5058-42A2-A97A-0F9027C9F0EB",
@@ -177,7 +177,7 @@ this.ScenarioSetup(scenarioInfo);
                     "without a create event");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "AggregateRootId",
+                        "Id",
                         "Sku",
                         "Name",
                         "Price"});
@@ -201,7 +201,7 @@ this.ScenarioSetup(scenarioInfo);
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
-                        "AggregateRootId"});
+                        "Id"});
             table8.AddRow(new string[] {
                         "7B1FEAF8-A190-452A-9827-FA615607CDBE"});
 #line 44
@@ -219,7 +219,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("an event with id of \'27BB4FC0-5058-42A2-A97A-0F9027C9F0EB\' is marked as inactive");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
-                        "AggregateRootId"});
+                        "Id"});
             table10.AddRow(new string[] {
                         "7B1FEAF8-A190-452A-9827-FA615607CDBE"});
 #line 51

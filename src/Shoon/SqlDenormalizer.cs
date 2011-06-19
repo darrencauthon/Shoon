@@ -28,19 +28,21 @@ namespace Shoon
 
         protected virtual void Insert(DomainEvent domainEvent)
         {
-            TheDatabaseTable.Insert(domainEvent);
+            var data = GetTheDataToUpdateInTheTable(domainEvent);
+
+            TheDatabaseTable.Insert(data);
         }
 
         protected virtual void Update(DomainEvent domainEvent)
         {
             var data = GetTheDataToUpdateInTheTable(domainEvent);
 
-            TheDatabaseTable.UpdateByAggregateRootId(data);
+            TheDatabaseTable.UpdateById(data);
         }
 
         protected virtual void Upsert(DomainEvent domainEvent)
         {
-            if (ThisRecordHasAlreadyBeenAdded(domainEvent))
+            if (ThisRecordHasBeenInserted(domainEvent))
                 Update(domainEvent);
             else
                 Insert(domainEvent);
@@ -48,7 +50,7 @@ namespace Shoon
 
         protected void Delete(DomainEvent domainEvent)
         {
-            TheDatabaseTable.DeleteByAggregateRootId(domainEvent.AggregateRootId);
+            TheDatabaseTable.DeleteById(domainEvent.AggregateRootId);
         }
 
         private static object GetValue(DomainEvent domainEvent, string column)
@@ -70,11 +72,12 @@ namespace Shoon
             return BuildADataObjectThatHasAllUpdatableData(domainEvent, tableColumnsToUpdate);
         }
 
-        private Dictionary<string, object> BuildADataObjectThatHasAllUpdatableData(DomainEvent domainEvent, IEnumerable<string> tableColumnsToUpdate)
+        private static Dictionary<string, object> BuildADataObjectThatHasAllUpdatableData(DomainEvent domainEvent, IEnumerable<string> tableColumnsToUpdate)
         {
             var dictionary = new Dictionary<string, object>();
             foreach (var property in tableColumnsToUpdate)
                 dictionary[property] = GetValue(domainEvent, property);
+            dictionary["Id"] = domainEvent.AggregateRootId;
             return dictionary;
         }
 
@@ -85,9 +88,9 @@ namespace Shoon
                 .Where(property => columns.Contains(property));
         }
 
-        private bool ThisRecordHasAlreadyBeenAdded(DomainEvent domainEvent)
+        private bool ThisRecordHasBeenInserted(DomainEvent domainEvent)
         {
-            return (bool) TheDatabaseTable.FindAllByAggregateRootId(domainEvent.AggregateRootId).Any();
+            return (bool) TheDatabaseTable.FindAllById(domainEvent.AggregateRootId).Any();
         }
     }
 }

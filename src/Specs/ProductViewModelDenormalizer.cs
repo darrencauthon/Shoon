@@ -1,5 +1,4 @@
-﻿using System;
-using Shoon;
+﻿using Shoon;
 using SimpleCqrs.Eventing;
 
 namespace Specs
@@ -7,7 +6,7 @@ namespace Specs
     public class ProductViewModelDenormalizer : SqlDenormalizer,
                                                 IHandleDomainEvents<ProductCreatedEvent>,
                                                 IHandleDomainEvents<ProductNameSetEvent>,
-        IHandleDomainEvents<ProductMarkedAsInactiveEvent>
+                                                IHandleDomainEvents<ProductMarkedAsInactiveEvent>
     {
         public void Handle(ProductCreatedEvent domainEvent)
         {
