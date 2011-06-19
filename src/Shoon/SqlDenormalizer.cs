@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using Simple.Data;
-using Simple.Data.Ado.Schema;
 using Simple.Data.SqlServer;
 using SimpleCqrs.Eventing;
 
@@ -13,7 +11,7 @@ namespace Shoon
     public class SqlDenormalizer
     {
         private readonly dynamic db;
-        private IEnumerable<string> columns;
+        private readonly IEnumerable<string> columns;
 
         public SqlDenormalizer()
         {
@@ -23,35 +21,32 @@ namespace Shoon
             var sqlConnectionProvider = new SqlConnectionProvider(connectionString);
             var sqlSchemaProvider = new SqlSchemaProvider(sqlConnectionProvider);
             var table = sqlSchemaProvider.GetTables().First();
-            columns = sqlSchemaProvider.GetColumns(table).Select(x=>x.ActualName);
-
+            columns = sqlSchemaProvider.GetColumns(table).Select(x => x.ActualName);
         }
 
-        public void Insert(DomainEvent domainEvent)
+        protected virtual void Insert(DomainEvent domainEvent)
         {
             db.Products.Insert(domainEvent);
         }
 
-        public void Update(DomainEvent domainEvent)
+        protected virtual void Update(DomainEvent domainEvent)
         {
-            var dictionary = new Dictionary<string, object>();
-            foreach (var property in domainEvent.GetType().GetProperties().Select(x=>x.Name))
-                if (columns.Contains(property))
-                dictionary[property] = GetValue(domainEvent, property);
+            var data = GetTheDataToUpdateInTheTable(domainEvent);
 
-            db.Products.UpdateByAggregateRootId(dictionary);
+            db.Products.UpdateByAggregateRootId(data);
         }
 
-        private object GetValue(DomainEvent domainEvent, string column)
+        protected virtual void Upsert(DomainEvent domainEvent)
         {
-            try
-            {
-                return GetThePropertyOnThisObject(domainEvent, column).GetValue(domainEvent, null);
-            }
-            catch
-            {
-                return null;
-            }
+            if (ThisRecordHasAlreadyBeenAdded(domainEvent))
+                Update(domainEvent);
+            else
+                Insert(domainEvent);
+        }
+
+        private static object GetValue(DomainEvent domainEvent, string column)
+        {
+            return GetThePropertyOnThisObject(domainEvent, column).GetValue(domainEvent, null);
         }
 
         private static PropertyInfo GetThePropertyOnThisObject(object @object, string propertyName)
@@ -61,12 +56,31 @@ namespace Shoon
                 .FirstOrDefault(x => x.Name == propertyName);
         }
 
-        protected void Upsert(DomainEvent domainEvent)
+        private Dictionary<string, object> GetTheDataToUpdateInTheTable(DomainEvent domainEvent)
         {
-            if (db.Products.FindAllByAggregateRootId(domainEvent.AggregateRootId).Any())
-                Update(domainEvent);
-            else
-                Insert(domainEvent);
+            var tableColumnsToUpdate = GetTheTableColumnsThatNeedToBeUpdated(domainEvent);
+
+            return BuildADataObjectThatHasAllUpdatableData(domainEvent, tableColumnsToUpdate);
+        }
+
+        private Dictionary<string, object> BuildADataObjectThatHasAllUpdatableData(DomainEvent domainEvent, IEnumerable<string> tableColumnsToUpdate)
+        {
+            var dictionary = new Dictionary<string, object>();
+            foreach (var property in tableColumnsToUpdate)
+                dictionary[property] = GetValue(domainEvent, property);
+            return dictionary;
+        }
+
+        private IEnumerable<string> GetTheTableColumnsThatNeedToBeUpdated(DomainEvent domainEvent)
+        {
+            return domainEvent.GetType().GetProperties()
+                .Select(x => x.Name)
+                .Where(property => columns.Contains(property));
+        }
+
+        private bool ThisRecordHasAlreadyBeenAdded(DomainEvent domainEvent)
+        {
+            return (bool) db.Products.FindAllByAggregateRootId(domainEvent.AggregateRootId).Any();
         }
     }
 }
