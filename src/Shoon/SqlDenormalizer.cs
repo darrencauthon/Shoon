@@ -15,6 +15,11 @@ namespace Shoon
             get { return Database.OpenConnection(GetTheConnectionString())["Products"]; }
         }
 
+        protected IEnumerable<string> ColumnsInTheDatabaseTable
+        {
+            get { return GetTheColumnsInTheTable(); }
+        }
+
         protected virtual void Insert(DomainEvent domainEvent)
         {
             var data = GetTheDataToUpdateInTheTable(domainEvent);
@@ -80,7 +85,7 @@ namespace Shoon
         {
             return domainEvent.GetType().GetProperties()
                 .Select(x => x.Name)
-                .Where(property => GetTheColumnsInTheTable().Contains(property));
+                .Where(property => ColumnsInTheDatabaseTable.Contains(property));
         }
 
         private bool ThisRecordHasBeenInserted(DomainEvent domainEvent)
