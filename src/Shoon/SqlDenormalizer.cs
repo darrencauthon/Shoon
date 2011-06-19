@@ -10,20 +10,9 @@ namespace Shoon
 {
     public class SqlDenormalizer
     {
-        private readonly IEnumerable<string> columns;
-
-        public SqlDenormalizer()
-        {
-            var connectionString = ConfigurationManager.ConnectionStrings["Simple.Data.Properties.Settings.DefaultConnectionString"].ConnectionString;
-            var sqlConnectionProvider = new SqlConnectionProvider(connectionString);
-            var sqlSchemaProvider = new SqlSchemaProvider(sqlConnectionProvider);
-            var table = sqlSchemaProvider.GetTables().First();
-            columns = sqlSchemaProvider.GetColumns(table).Select(x => x.ActualName);
-        }
-
         protected dynamic TheDatabaseTable
         {
-            get { return Database.Open()["Products"]; }
+            get { return Database.OpenConnection(GetTheConnectionString())["Products"]; }
         }
 
         protected virtual void Insert(DomainEvent domainEvent)
@@ -53,6 +42,11 @@ namespace Shoon
             TheDatabaseTable.DeleteById(domainEvent.AggregateRootId);
         }
 
+        private static string GetTheConnectionString()
+        {
+            return ConfigurationManager.ConnectionStrings["Simple.Data.Properties.Settings.DefaultConnectionString"].ConnectionString;
+        }
+
         private static object GetValue(DomainEvent domainEvent, string column)
         {
             return GetThePropertyOnThisObject(domainEvent, column).GetValue(domainEvent, null);
@@ -72,7 +66,8 @@ namespace Shoon
             return BuildADataObjectThatHasAllUpdatableData(domainEvent, tableColumnsToUpdate);
         }
 
-        private static Dictionary<string, object> BuildADataObjectThatHasAllUpdatableData(DomainEvent domainEvent, IEnumerable<string> tableColumnsToUpdate)
+        private static Dictionary<string, object> BuildADataObjectThatHasAllUpdatableData(DomainEvent domainEvent,
+                                                                                          IEnumerable<string> tableColumnsToUpdate)
         {
             var dictionary = new Dictionary<string, object>();
             foreach (var property in tableColumnsToUpdate)
@@ -85,12 +80,21 @@ namespace Shoon
         {
             return domainEvent.GetType().GetProperties()
                 .Select(x => x.Name)
-                .Where(property => columns.Contains(property));
+                .Where(property => GetTheColumnsInTheTable().Contains(property));
         }
 
         private bool ThisRecordHasBeenInserted(DomainEvent domainEvent)
         {
             return (bool) TheDatabaseTable.FindAllById(domainEvent.AggregateRootId).Any();
+        }
+
+        private static IEnumerable<string> GetTheColumnsInTheTable()
+        {
+            var connectionString = GetTheConnectionString();
+            var sqlConnectionProvider = new SqlConnectionProvider(connectionString);
+            var sqlSchemaProvider = new SqlSchemaProvider(sqlConnectionProvider);
+            var table = sqlSchemaProvider.GetTables().First();
+            return sqlSchemaProvider.GetColumns(table).Select(x => x.ActualName);
         }
     }
 }
