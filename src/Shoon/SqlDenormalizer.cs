@@ -14,7 +14,7 @@ namespace Shoon
         public SqlDenormalizer()
         {
             connectionStringRetriever = ServiceLocator.Current.Resolve<IConnectionStringRetriever>();
-            updateValuesBuilder = new UpdatableValuesBuilder(connectionStringRetriever, tableName);
+            updateValuesBuilder = new UpdatableValuesBuilder(connectionStringRetriever);
         }
 
         protected dynamic TheDatabaseTable
@@ -56,7 +56,7 @@ namespace Shoon
 
         private IDictionary<string, object> GetTheDataToUpdateInTheTable(DomainEvent domainEvent)
         {
-            return (updateValuesBuilder.GetTheDataToUpdateInTheTable(domainEvent));
+            return (updateValuesBuilder.GetTheDataToUpdateInTheTable(domainEvent, tableName));
         }
 
         private bool ThisRecordHasBeenInserted(DomainEvent domainEvent)

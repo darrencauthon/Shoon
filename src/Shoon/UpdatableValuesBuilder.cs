@@ -9,35 +9,27 @@ namespace Shoon
     public class UpdatableValuesBuilder
     {
         private readonly IConnectionStringRetriever connectionStringRetriever;
-        private readonly string tableName;
 
-        public UpdatableValuesBuilder(IConnectionStringRetriever connectionStringRetriever,
-            string tableName)
+        public UpdatableValuesBuilder(IConnectionStringRetriever connectionStringRetriever)
         {
             this.connectionStringRetriever = connectionStringRetriever;
-            this.tableName = tableName;
         }
 
-        public IDictionary<string, object> GetTheDataToUpdateInTheTable(DomainEvent domainEvent)
+        public IDictionary<string, object> GetTheDataToUpdateInTheTable(DomainEvent domainEvent, string tableName)
         {
-            var tableColumnsToUpdate = GetTheTableColumnsThatNeedToBeUpdated(domainEvent);
+            var tableColumnsToUpdate = GetTheTableColumnsThatNeedToBeUpdated(domainEvent, tableName);
 
             return BuildADataObjectThatHasAllUpdatableData(domainEvent, tableColumnsToUpdate);
         }
 
-        protected IEnumerable<string> ColumnsInTheDatabaseTable
-        {
-            get { return GetTheColumnsInTheTable(); }
-        }
-
-        private IEnumerable<string> GetTheTableColumnsThatNeedToBeUpdated(DomainEvent domainEvent)
+        private IEnumerable<string> GetTheTableColumnsThatNeedToBeUpdated(DomainEvent domainEvent, string tableName)
         {
             return domainEvent.GetType().GetProperties()
                 .Select(x => x.Name)
-                .Where(property => ColumnsInTheDatabaseTable.Contains(property));
+                .Where(property => GetTheColumnsInTheTable(tableName).Contains(property));
         }
 
-        private IEnumerable<string> GetTheColumnsInTheTable()
+        private IEnumerable<string> GetTheColumnsInTheTable(string tableName)
         {
             var connectionString = GetTheConnectionString();
             var sqlConnectionProvider = new SqlConnectionProvider(connectionString);
