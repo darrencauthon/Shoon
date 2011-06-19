@@ -13,7 +13,7 @@ namespace Shoon
         public SqlDenormalizer()
         {
             connectionStringRetriever = ServiceLocator.Current.Resolve<IConnectionStringRetriever>();
-            updateValuesBuilder = new UpdatableValuesBuilder(connectionStringRetriever);
+            updateValuesBuilder = new UpdatableValuesBuilder(connectionStringRetriever, "Products");
         }
 
         protected dynamic TheDatabaseTable

@@ -9,10 +9,13 @@ namespace Shoon
     public class UpdatableValuesBuilder
     {
         private readonly IConnectionStringRetriever connectionStringRetriever;
+        private readonly string tableName;
 
-        public UpdatableValuesBuilder(IConnectionStringRetriever connectionStringRetriever)
+        public UpdatableValuesBuilder(IConnectionStringRetriever connectionStringRetriever,
+            string tableName)
         {
             this.connectionStringRetriever = connectionStringRetriever;
+            this.tableName = tableName;
         }
 
         public IDictionary<string, object> GetTheDataToUpdateInTheTable(DomainEvent domainEvent)
@@ -39,7 +42,7 @@ namespace Shoon
             var connectionString = GetTheConnectionString();
             var sqlConnectionProvider = new SqlConnectionProvider(connectionString);
             var sqlSchemaProvider = new SqlSchemaProvider(sqlConnectionProvider);
-            var table = sqlSchemaProvider.GetTables().First();
+            var table = sqlSchemaProvider.GetTables().Single(x=>x.ActualName == tableName);
             return sqlSchemaProvider.GetColumns(table).Select(x => x.ActualName);
         }
 
