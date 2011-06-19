@@ -11,7 +11,7 @@ namespace Specs.Steps
         public void GivenTheProductTableIsEmpty()
         {
             var database = ScenarioContext.Current["Database"] as dynamic;
-            database.Products.DeleteAll();
+            database.ProductViewModel.DeleteAll();
         }
 
         [Given(@"the product view model table has the following data")]
@@ -19,20 +19,20 @@ namespace Specs.Steps
         {
             var database = ScenarioContext.Current["Database"] as dynamic;
 
-            database.Products.DeleteAll();
+            database.ProductViewModel.DeleteAll();
 
             var products = table.CreateSet<ProductViewModel>();
 
-            foreach(var product in products)
-                database.Products.Insert(product);
+            foreach (var product in products)
+                database.ProductViewModel.Insert(product);
         }
 
         [Then(@"the following product view models should exist in the Product table")]
         public void ThenTheFollowingProductViewModelsShouldExistInTheProductTable(Table table)
         {
             var database = ScenarioContext.Current["Database"] as dynamic;
-            
-            IEnumerable<ProductViewModel> productViewModels = database.Products.All().Cast<ProductViewModel>();
+
+            IEnumerable<ProductViewModel> productViewModels = database.ProductViewModel.All().Cast<ProductViewModel>();
             table.CompareToSet(productViewModels);
         }
     }

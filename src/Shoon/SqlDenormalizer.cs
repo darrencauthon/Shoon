@@ -9,12 +9,14 @@ namespace Shoon
     {
         private readonly IConnectionStringRetriever connectionStringRetriever;
         private readonly UpdatableValuesBuilder updateValuesBuilder;
-        private const string tableName = "Products";
+        private readonly string tableName;
 
         public SqlDenormalizer()
         {
             connectionStringRetriever = ServiceLocator.Current.Resolve<IConnectionStringRetriever>();
             updateValuesBuilder = new UpdatableValuesBuilder(connectionStringRetriever);
+            var tableNameCalculator = new TableNameCalculator();
+            tableName = tableNameCalculator.GetTheTableName(GetType());
         }
 
         protected dynamic TheDatabaseTable
