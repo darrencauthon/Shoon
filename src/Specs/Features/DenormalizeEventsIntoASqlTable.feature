@@ -4,7 +4,8 @@
 	I want to use a denormalizer that automates much of the denormalizing work for me
 
 Scenario: Create a new object in the table
-	Given the product view model table is empty
+	Given I have loaded a connection string retriever
+	And the product view model table is empty
 	When a product is created with the following data
 	| Field           | Value                                |
 	| AggregateRootId | 09887969-1F86-47A0-BB47-57722D2DF892 |
@@ -14,7 +15,8 @@ Scenario: Create a new object in the table
 	| 09887969-1F86-47A0-BB47-57722D2DF892 | testsku |
 
 Scenario: Create and update
-	Given the product view model table is empty
+	Given I have loaded a connection string retriever
+	And the product view model table is empty
 	When a product is created with the following data
 	| Field           | Value                                |
 	| AggregateRootId | 4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE |
@@ -25,14 +27,16 @@ Scenario: Create and update
 	| 4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE | SKU #1  | Applesauce Cleaner |
 
 Scenario: Upsert when the record has not been inserted
-	Given the product view model table is empty
+	Given I have loaded a connection string retriever
+	And the product view model table is empty
 	When an event to set the price of product '27BB4FC0-5058-42A2-A97A-0F9027C9F0EB' to 4 without a create event
 	Then the following product view models should exist in the Product table
 	| Id                                   | Sku | Name | Price |
 	| 27BB4FC0-5058-42A2-A97A-0F9027C9F0EB |     |      | 4     |
 
 Scenario: Upsert when the record has already been inserted
-	Given the product view model table has the following data
+	Given I have loaded a connection string retriever
+	And the product view model table has the following data
 	| Id                                   | Price |
 	| 27BB4FC0-5058-42A2-A97A-0F9027C9F0EB |       |
 	When an event to set the price of product '27BB4FC0-5058-42A2-A97A-0F9027C9F0EB' to 4 without a create event
@@ -41,7 +45,8 @@ Scenario: Upsert when the record has already been inserted
 	| 27BB4FC0-5058-42A2-A97A-0F9027C9F0EB |     |      | 4     |
 
 Scenario: Delete
-	Given the product view model table has the following data
+	Given I have loaded a connection string retriever
+	And the product view model table has the following data
 	| Id                                   |
 	| 7B1FEAF8-A190-452A-9827-FA615607CDBE |
 	When a product is created with the following data

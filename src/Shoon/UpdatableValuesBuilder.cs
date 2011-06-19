@@ -8,9 +8,9 @@ namespace Shoon
 {
     public class UpdatableValuesBuilder
     {
-        private readonly ConnectionStringRetriever connectionStringRetriever;
+        private readonly IConnectionStringRetriever connectionStringRetriever;
 
-        public UpdatableValuesBuilder(ConnectionStringRetriever connectionStringRetriever)
+        public UpdatableValuesBuilder(IConnectionStringRetriever connectionStringRetriever)
         {
             this.connectionStringRetriever = connectionStringRetriever;
         }

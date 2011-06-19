@@ -62,7 +62,9 @@ namespace Specs.Features
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("the product view model table is empty");
+ testRunner.Given("I have loaded a connection string retriever");
+#line 8
+ testRunner.And("the product view model table is empty");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
@@ -73,7 +75,7 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "Sku",
                         "testsku"});
-#line 8
+#line 9
  testRunner.When("a product is created with the following data", ((string)(null)), table1);
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -82,7 +84,7 @@ this.ScenarioSetup(scenarioInfo);
             table2.AddRow(new string[] {
                         "09887969-1F86-47A0-BB47-57722D2DF892",
                         "testsku"});
-#line 12
+#line 13
  testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table2);
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -93,10 +95,12 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CreateAndUpdate()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create and update", ((string[])(null)));
-#line 16
-this.ScenarioSetup(scenarioInfo);
 #line 17
- testRunner.Given("the product view model table is empty");
+this.ScenarioSetup(scenarioInfo);
+#line 18
+ testRunner.Given("I have loaded a connection string retriever");
+#line 19
+ testRunner.And("the product view model table is empty");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
@@ -107,9 +111,9 @@ this.ScenarioSetup(scenarioInfo);
             table3.AddRow(new string[] {
                         "Sku",
                         "SKU #1"});
-#line 18
+#line 20
  testRunner.When("a product is created with the following data", ((string)(null)), table3);
-#line 22
+#line 24
  testRunner.And("the name of the product \'4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE\' is set to \'Applesa" +
                     "uce Cleaner\'");
 #line hidden
@@ -121,7 +125,7 @@ this.ScenarioSetup(scenarioInfo);
                         "4B4FCB75-BC7C-459F-AC1B-EFDA8C0CBFBE",
                         "SKU #1",
                         "Applesauce Cleaner"});
-#line 23
+#line 25
  testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table4);
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -132,11 +136,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void UpsertWhenTheRecordHasNotBeenInserted()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Upsert when the record has not been inserted", ((string[])(null)));
-#line 27
-this.ScenarioSetup(scenarioInfo);
-#line 28
- testRunner.Given("the product view model table is empty");
 #line 29
+this.ScenarioSetup(scenarioInfo);
+#line 30
+ testRunner.Given("I have loaded a connection string retriever");
+#line 31
+ testRunner.And("the product view model table is empty");
+#line 32
  testRunner.When("an event to set the price of product \'27BB4FC0-5058-42A2-A97A-0F9027C9F0EB\' to 4 " +
                     "without a create event");
 #line hidden
@@ -150,7 +156,7 @@ this.ScenarioSetup(scenarioInfo);
                         "",
                         "",
                         "4"});
-#line 30
+#line 33
  testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table5);
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -161,8 +167,10 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void UpsertWhenTheRecordHasAlreadyBeenInserted()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Upsert when the record has already been inserted", ((string[])(null)));
-#line 34
+#line 37
 this.ScenarioSetup(scenarioInfo);
+#line 38
+ testRunner.Given("I have loaded a connection string retriever");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
@@ -170,9 +178,9 @@ this.ScenarioSetup(scenarioInfo);
             table6.AddRow(new string[] {
                         "27BB4FC0-5058-42A2-A97A-0F9027C9F0EB",
                         ""});
-#line 35
- testRunner.Given("the product view model table has the following data", ((string)(null)), table6);
-#line 38
+#line 39
+ testRunner.And("the product view model table has the following data", ((string)(null)), table6);
+#line 42
  testRunner.When("an event to set the price of product \'27BB4FC0-5058-42A2-A97A-0F9027C9F0EB\' to 4 " +
                     "without a create event");
 #line hidden
@@ -186,7 +194,7 @@ this.ScenarioSetup(scenarioInfo);
                         "",
                         "",
                         "4"});
-#line 39
+#line 43
  testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table7);
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -197,15 +205,17 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void Delete()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete", ((string[])(null)));
-#line 43
+#line 47
 this.ScenarioSetup(scenarioInfo);
+#line 48
+ testRunner.Given("I have loaded a connection string retriever");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id"});
             table8.AddRow(new string[] {
                         "7B1FEAF8-A190-452A-9827-FA615607CDBE"});
-#line 44
- testRunner.Given("the product view model table has the following data", ((string)(null)), table8);
+#line 49
+ testRunner.And("the product view model table has the following data", ((string)(null)), table8);
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
@@ -213,16 +223,16 @@ this.ScenarioSetup(scenarioInfo);
             table9.AddRow(new string[] {
                         "AggregateRootId",
                         "27BB4FC0-5058-42A2-A97A-0F9027C9F0EB"});
-#line 47
+#line 52
  testRunner.When("a product is created with the following data", ((string)(null)), table9);
-#line 50
+#line 55
  testRunner.And("an event with id of \'27BB4FC0-5058-42A2-A97A-0F9027C9F0EB\' is marked as inactive");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id"});
             table10.AddRow(new string[] {
                         "7B1FEAF8-A190-452A-9827-FA615607CDBE"});
-#line 51
+#line 56
  testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table10);
 #line hidden
             testRunner.CollectScenarioErrors();

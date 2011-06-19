@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using Simple.Data;
+using SimpleCqrs;
 using SimpleCqrs.Eventing;
 
 namespace Shoon
 {
     public class SqlDenormalizer
     {
-        private readonly ConnectionStringRetriever connectionStringRetriever;
+        private readonly IConnectionStringRetriever connectionStringRetriever;
         private readonly UpdatableValuesBuilder updateValuesBuilder;
 
         public SqlDenormalizer()
         {
-            connectionStringRetriever = new ConnectionStringRetriever();
+            connectionStringRetriever = ServiceLocator.Current.Resolve<IConnectionStringRetriever>();
             updateValuesBuilder = new UpdatableValuesBuilder(connectionStringRetriever);
         }
 
@@ -19,7 +20,7 @@ namespace Shoon
         {
             get
             {
-                var connectionString = new ConnectionStringRetriever().GetTheConnectionString();
+                var connectionString = connectionStringRetriever.GetTheConnectionString();
 
                 return Database.OpenConnection(connectionString)["Products"];
             }
