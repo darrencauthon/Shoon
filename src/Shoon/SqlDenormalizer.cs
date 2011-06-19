@@ -10,13 +10,10 @@ namespace Shoon
 {
     public class SqlDenormalizer
     {
-        private readonly dynamic db;
         private readonly IEnumerable<string> columns;
 
         public SqlDenormalizer()
         {
-            db = Database.Open();
-
             var connectionString = ConfigurationManager.ConnectionStrings["Simple.Data.Properties.Settings.DefaultConnectionString"].ConnectionString;
             var sqlConnectionProvider = new SqlConnectionProvider(connectionString);
             var sqlSchemaProvider = new SqlSchemaProvider(sqlConnectionProvider);
@@ -24,16 +21,21 @@ namespace Shoon
             columns = sqlSchemaProvider.GetColumns(table).Select(x => x.ActualName);
         }
 
+        protected dynamic TheDatabaseTable
+        {
+            get { return Database.Open()["Products"]; }
+        }
+
         protected virtual void Insert(DomainEvent domainEvent)
         {
-            db.Products.Insert(domainEvent);
+            TheDatabaseTable.Insert(domainEvent);
         }
 
         protected virtual void Update(DomainEvent domainEvent)
         {
             var data = GetTheDataToUpdateInTheTable(domainEvent);
 
-            db.Products.UpdateByAggregateRootId(data);
+            TheDatabaseTable.UpdateByAggregateRootId(data);
         }
 
         protected virtual void Upsert(DomainEvent domainEvent)
@@ -80,7 +82,7 @@ namespace Shoon
 
         private bool ThisRecordHasAlreadyBeenAdded(DomainEvent domainEvent)
         {
-            return (bool) db.Products.FindAllByAggregateRootId(domainEvent.AggregateRootId).Any();
+            return (bool) TheDatabaseTable.FindAllByAggregateRootId(domainEvent.AggregateRootId).Any();
         }
     }
 }
