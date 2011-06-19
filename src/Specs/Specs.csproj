@@ -98,12 +98,14 @@
     <Compile Include="Product.cs" />
     <Compile Include="ProductCreatedEvent.cs" />
     <Compile Include="ProductNameSetEvent.cs" />
+    <Compile Include="ProductPriceSetEvent.cs" />
     <Compile Include="ProductViewModel.cs" />
     <Compile Include="ProductViewModelDenormalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\ProductSteps.cs" />
     <Compile Include="Steps\ProductViewModelSteps.cs" />
     <Compile Include="Steps\SimpleDataSteps.cs" />
+    <Compile Include="Steps\SqlDenormalizerSteps.cs" />
     <Compile Include="Steps\TestingRuntimeSteps.cs" />
     <Compile Include="TestingRuntime.cs" />
   </ItemGroup>

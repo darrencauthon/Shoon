@@ -1,4 +1,5 @@
-﻿using Shoon;
+﻿using System;
+using Shoon;
 using SimpleCqrs.Eventing;
 
 namespace Specs
@@ -15,6 +16,11 @@ namespace Specs
         public void Handle(ProductNameSetEvent domainEvent)
         {
             Update(domainEvent);
+        }
+
+        public void Handle(ProductPriceSetEvent domainEvent)
+        {
+            Upsert(domainEvent);
         }
     }
 }

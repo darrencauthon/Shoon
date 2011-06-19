@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
@@ -58,6 +59,11 @@ namespace Shoon
             var type = @object.GetType();
             return type.GetProperties()
                 .FirstOrDefault(x => x.Name == propertyName);
+        }
+
+        protected void Upsert(DomainEvent domainEvent)
+        {
+            Insert(domainEvent);
         }
     }
 }

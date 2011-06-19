@@ -126,6 +126,35 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Upsert when no previous record exists")]
+        public virtual void UpsertWhenNoPreviousRecordExists()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Upsert when no previous record exists", ((string[])(null)));
+#line 27
+this.ScenarioSetup(scenarioInfo);
+#line 28
+ testRunner.Given("the product view model table is empty");
+#line 29
+ testRunner.When("an event to set the price of product \'27BB4FC0-5058-42A2-A97A-0F9027C9F0EB\' to 4 " +
+                    "without a create event");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AggregateRootId",
+                        "Sku",
+                        "Name",
+                        "Price"});
+            table5.AddRow(new string[] {
+                        "27BB4FC0-5058-42A2-A97A-0F9027C9F0EB",
+                        "",
+                        "",
+                        "4"});
+#line 30
+ testRunner.Then("the following product view models should exist in the Product table", ((string)(null)), table5);
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

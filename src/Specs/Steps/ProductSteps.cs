@@ -28,6 +28,12 @@ namespace Specs.Steps
             domainRepository.Save(product);
         }
 
+        [When(@"the price of the product '(.*)' is set to ")]
+        public void WhenThePriceOfTheProduct68EC20BA_4DF3_4328_9E7E_60DEEDB3DF29IsSetTo4_00()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
         public class GetDataFromTable
         {
             public Guid AggregateRootId { get; set; }
