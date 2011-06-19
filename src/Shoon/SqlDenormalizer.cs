@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using ClaySharp;
 using Simple.Data;
 using Simple.Data.Ado.Schema;
 using Simple.Data.SqlServer;
