@@ -41,6 +41,6 @@ Shoon is a simple SQL Server denormalizer for SimpleCQRS.  You can use it to qui
 
 As accounts are created and data set, it will build a table like this:
 
-| Id     | FirstName | LastName | Email            |
-| GUID 1 | Howard    | Roark    | howard@roark.com |
-| GUID 2 | John      | Galt     | john@galt.com    |
+    | Id     | FirstName | LastName | Email            |
+    | GUID 1 | Howard    | Roark    | howard@roark.com |
+    | GUID 2 | John      | Galt     | john@galt.com    |
